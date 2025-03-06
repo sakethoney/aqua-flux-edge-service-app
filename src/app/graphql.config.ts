@@ -1,25 +1,36 @@
+// In your graphql.config.ts (or wherever you create Apollo):
+import { ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
 import { HttpLink } from 'apollo-angular/http';
 import { APOLLO_OPTIONS } from 'apollo-angular';
-import { ApolloClientOptions, InMemoryCache, ApolloLink } from '@apollo/client/core';
 
-// The Spring Boot GraphQL endpoint:
-const uri = 'http://localhost:8080/graphql';
+export function createApollo(httpLink: HttpLink) {
+  const uri = 'http://localhost:8080/graphql';
 
-export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+  // This link adds fetchOptions (mode: 'cors', etc.) to all requests
+  const corsLink = setContext(() => ({
+    fetchOptions: {
+      mode: 'cors',
+      // credentials: 'include', // If you need cookies
+    },
+  }));
+
+  // Then create the standard HttpLink
   const http = httpLink.create({ uri });
-  // If needed, you can add an ApolloLink array for auth, logging, etc.
+
+  // Combine them
+  const link = ApolloLink.from([corsLink, http]);
+
   return {
-    link: ApolloLink.from([http]),
+    link,
     cache: new InMemoryCache(),
   };
 }
 
-// This array can be spread into the `providers: []` array in your bootstrap.
 export const GraphQLProviders = [
   {
-   provide: APOLLO_OPTIONS,
-   useFactory: createApollo,
-   deps: [HttpLink]
-  }
+    provide: APOLLO_OPTIONS,
+    useFactory: createApollo,
+    deps: [HttpLink],
+  },
 ];
-
