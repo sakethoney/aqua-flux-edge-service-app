@@ -1,4 +1,3 @@
-import { provide } from '@angular/core';
 import { HttpLink } from 'apollo-angular/http';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { ApolloClientOptions, InMemoryCache, ApolloLink } from '@apollo/client/core';
@@ -17,8 +16,10 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
 
 // This array can be spread into the `providers: []` array in your bootstrap.
 export const GraphQLProviders = [
-  provide(APOLLO_OPTIONS, {
-    useFactory: createApollo,
-    deps: [HttpLink],
-  }),
+  {
+   provide: APOLLO_OPTIONS,
+   useFactory: createApollo,
+   deps: [HttpLink]
+  }
 ];
+
