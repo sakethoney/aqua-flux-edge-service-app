@@ -1,1 +1,211 @@
 /* You can add global styles to this file, and also import other style files */
+/* --------------------
+   LESS VARIABLES
+--------------------- */
+@brightBlue:         oklch(51.01% 0.274 263.83);
+@electricViolet:     oklch(53.18% 0.28 296.97);
+@frenchViolet:       oklch(47.66% 0.246 305.88);
+@vividPink:          oklch(69.02% 0.277 332.77);
+@hotRed:             oklch(61.42% 0.238 15.34);
+@orangeRed:          oklch(63.32% 0.24 31.68);
+
+@gray900:            oklch(19.37% 0.006 300.98);
+@gray700:            oklch(36.98% 0.014 302.71);
+@gray400:            oklch(70.9%  0.015 304.04);
+
+/* Example gradient variables */
+@redToPinkToPurpleVerticalGradient:   linear-gradient(
+  180deg,
+  @orangeRed 0%,
+  @vividPink 50%,
+  @electricViolet 100%
+);
+
+@redToPinkToPurpleHorizontalGradient: linear-gradient(
+  90deg,
+  @orangeRed 0%,
+  @vividPink 50%,
+  @electricViolet 100%
+);
+
+/* Default 'pill' accent color */
+@pillAccent: @brightBlue;
+
+/* Font variables for convenience */
+@interFont:       "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                  Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+                  "Segoe UI Symbol";
+@interTightFont:  "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                  Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+                  "Segoe UI Emoji", "Segoe UI Symbol";
+
+
+/* --------------------
+   STYLES
+--------------------- */
+
+/* Host styles, analogous to :host in an Angular component */
+:host {
+  font-family: @interFont;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: 3.125rem;
+  color: @gray900;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.125rem;
+  margin: 0;
+  font-family: @interTightFont;
+}
+
+p {
+  margin: 0;
+  color: @gray700;
+}
+
+main {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: inherit;
+  position: relative;
+}
+
+.angular-logo {
+  max-width: 9.2rem;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 3rem;
+
+  h1 {
+    margin-top: 1.75rem;
+  }
+
+  p {
+    margin-top: 1.5rem;
+  }
+}
+
+.divider {
+  width: 1px;
+  background: @redToPinkToPurpleVerticalGradient;
+  margin-inline: 0.5rem;
+}
+
+.pill-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+/* Base pill style */
+.pill {
+  display: flex;
+  align-items: center;
+  /* Use the @pillAccent variable */
+  background: color-mix(in srgb, @pillAccent 5%, transparent);
+  color: @pillAccent;
+  padding-inline: 0.75rem;
+  padding-block: 0.375rem;
+  border-radius: 2.75rem;
+  border: 0;
+  transition: background 0.3s ease;
+  font-family: @interFont;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4rem;
+  letter-spacing: -0.00875rem;
+  text-decoration: none;
+
+  &:hover {
+    background: color-mix(in srgb, @pillAccent 15%, transparent);
+  }
+}
+
+/* Change pill accent color based on nth-child logic */
+.pill-group .pill:nth-child(6n + 1) {
+  @localAccent: @brightBlue;
+
+  background: color-mix(in srgb, @localAccent 5%, transparent);
+  color: @localAccent;
+
+  &:hover {
+    background: color-mix(in srgb, @localAccent 15%, transparent);
+  }
+}
+
+.pill-group .pill:nth-child(6n + 2) {
+  @localAccent: @frenchViolet;
+
+  background: color-mix(in srgb, @localAccent 5%, transparent);
+  color: @localAccent;
+
+  &:hover {
+    background: color-mix(in srgb, @localAccent 15%, transparent);
+  }
+}
+
+.pill-group .pill:nth-child(6n + 3),
+.pill-group .pill:nth-child(6n + 4),
+.pill-group .pill:nth-child(6n + 5) {
+  @localAccent: @hotRed;
+
+  background: color-mix(in srgb, @localAccent 5%, transparent);
+  color: @localAccent;
+
+  &:hover {
+    background: color-mix(in srgb, @localAccent 15%, transparent);
+  }
+}
+
+/* SVG Icon spacing */
+.pill-group svg {
+  margin-inline-start: 0.25rem;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.73rem;
+  margin-top: 1.5rem;
+
+  path {
+    transition: fill 0.3s ease;
+    fill: @gray400;
+  }
+
+  a:hover svg path {
+    fill: @gray900;
+  }
+}
+
+/* Responsive rule */
+@media screen and (max-width: 650px) {
+  .content {
+    flex-direction: column;
+    width: max-content;
+  }
+
+  .divider {
+    height: 1px;
+    width: 100%;
+    background: @redToPinkToPurpleHorizontalGradient;
+    margin-block: 1.5rem;
+  }
+}
+
