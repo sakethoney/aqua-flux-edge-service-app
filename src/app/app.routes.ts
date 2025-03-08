@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { ArtifactComponent } from './artifact/artifact.component';
+import { FeaturesComponent } from './features/features.component';
+import { ArtifactsComponent } from './artifacts/artifacts.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/artifacts', pathMatch: 'full' },
-    { path: 'artifacts', component: ArtifactComponent },
+    { path: '', component: FeaturesComponent },
+    { path: 'artifacts', component: ArtifactsComponent },
 ];

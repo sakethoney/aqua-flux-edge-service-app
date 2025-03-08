@@ -1,0 +1,21 @@
+<div class="feature-container">
+    <h2>Angular Feature Showcase</h2>
+    
+    <label for="filter">Filter items:</label>
+    <input 
+      id="filter" 
+      type="text" 
+      [(ngModel)]="filterText" 
+      placeholder="Type to filter..." 
+    >
+  
+    <ul>
+      <li *ngFor="let item of filteredItems">{{ item }}</li>
+    </ul>
+  </div>
+  <div class="features-container">
+    <h1>Welcome to Features</h1>
+    <button [routerLink]="['/artifacts']">View Artifacts</button>
+  </div>
+  <router-outlet></router-outlet>
+  
